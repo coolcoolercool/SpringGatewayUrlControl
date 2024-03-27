@@ -1,0 +1,2 @@
+# SpringGatewayUrlControl
+通过session中储存的用户可访问的url，判断当前用户是否可访问目标url
