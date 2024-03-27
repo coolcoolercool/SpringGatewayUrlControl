@@ -26,5 +26,9 @@ logging:
   level:
     root: info
 
+black-ip:
+  ip-list: ## 支持模糊配置
+    - 0:0:0:0:0:0:0:*
+
 
 

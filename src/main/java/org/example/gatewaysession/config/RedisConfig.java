@@ -1,4 +1,4 @@
-package org.example.gatewaysession.compont;
+package org.example.gatewaysession.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,11 +7,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-/**
- * @author linzp
- * @version 1.0.0
- * CreateDate 2020/8/18 22:26
- */
 @Configuration
 public class RedisConfig {
 
@@ -27,7 +22,6 @@ public class RedisConfig {
         template.setValueSerializer(redisSerializer);
         //value hashmap序列化
         template.setHashValueSerializer(redisSerializer);
-
         //key haspmap序列化
         template.setHashKeySerializer(redisSerializer);
 

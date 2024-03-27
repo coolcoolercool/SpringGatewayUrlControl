@@ -94,6 +94,6 @@ public class AuthFilter implements GlobalFilter, Order {
 
     @Override
     public int value() {
-        return -1;
+        return 1;
     }
 }
