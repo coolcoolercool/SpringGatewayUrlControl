@@ -34,6 +34,7 @@ public class IPFilter implements GlobalFilter, Order {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("----------------------------IPFilter Begin----------------------------");
         ServerHttpResponse response = exchange.getResponse();
         ServerHttpRequest request = exchange.getRequest();
         String clientIP = Objects.requireNonNull(request.getRemoteAddress()).getHostName();
@@ -44,6 +45,7 @@ public class IPFilter implements GlobalFilter, Order {
             response.setStatusCode(HttpStatus.FORBIDDEN);
             return response.setComplete();
         }
+        log.info("----------------------------IPFilter End----------------------------");
         return chain.filter(exchange);
     }
 

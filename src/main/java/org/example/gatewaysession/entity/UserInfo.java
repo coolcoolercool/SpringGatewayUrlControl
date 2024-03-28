@@ -12,7 +12,6 @@ import java.util.List;
 public class UserInfo implements Serializable {
     String userName;
     List<String> urlList;
-
     public UserInfo() {
     }
 }

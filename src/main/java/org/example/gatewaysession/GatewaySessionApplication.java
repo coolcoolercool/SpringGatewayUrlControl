@@ -7,6 +7,7 @@ import org.springframework.session.data.redis.config.annotation.web.server.Enabl
 
 @SpringBootApplication
 @EnableRedisWebSession
+//@EnableDiscoveryClient
 @ComponentScan(basePackages = {"org.example.gatewaysession.config", "org.example.gatewaysession.filter"} )
 public class GatewaySessionApplication {
 

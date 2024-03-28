@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   redis:
     host: localhost
     port: 6379
@@ -10,14 +12,29 @@ spring:
         max-active: 32
         min-idle: 8
   application:
-    name: api-gateway
+    name: spring-cloud-gateway-app
   cloud:
+    nacos:
+      config:
+        server-addr: 172.17.0.4:8848
+        namespace:
+      discovery:
+        server-add: 172.17.0.4:8848
     gateway:
       routes:
-        - id: session-service
+        - id: query-service
           uri: http://localhost:8090/
           predicates:
             - Path=/test/**
+    sentinel:
+      enabled: true
+      eager: true # 取消控制台懒加载，项目启动即连接Sentinel
+      transport:
+        port: 8082 # 本地客户端的端口
+        dashboard: localhost:8081 # 控制台地址
+      filter:
+        enabled: false
+
 
 server:
   port: 8080
@@ -28,7 +45,8 @@ logging:
 
 black-ip:
   ip-list: ## 支持模糊配置
-    - 0:0:0:0:0:0:0:*
+    #- 0:0:0:0:0:0:0:*
+
 
 
 

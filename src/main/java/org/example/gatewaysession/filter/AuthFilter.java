@@ -40,6 +40,7 @@ public class AuthFilter implements GlobalFilter, Order {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("----------------------------AuthFilter Begin----------------------------");
         String url = exchange.getRequest().getURI().getPath();
         log.info("filter url: {}", url);
 
@@ -52,6 +53,7 @@ public class AuthFilter implements GlobalFilter, Order {
         }
 
         String hashKey = HASH_SESSION_KEY_PREFIX + token;
+        log.info("hashKey: {}", hashKey);
         String userInfoStr = (String) redisTemplate.opsForHash().get(hashKey, "sessionAttr:sessionKey");
         log.info("userInfoStr: {}", userInfoStr);
 
@@ -70,6 +72,7 @@ public class AuthFilter implements GlobalFilter, Order {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
+        log.info("----------------------------AuthFilter End----------------------------");
         return chain.filter(exchange);
     }
 
@@ -77,15 +80,15 @@ public class AuthFilter implements GlobalFilter, Order {
         boolean isMatch = false;
         for (String pattern : urlPattern) {
             if (antPathMatcher.isPattern(pattern)) {
-                log.info("pattern isPattern: {}", pattern);
+                log.info("url:{} isPattern", pattern);
                 isMatch = antPathMatcher.match(pattern, url);
             } else {
-                log.info("pattern is not pattern: {}", pattern);
+                log.info("url:{} is not pattern", pattern);
                 isMatch = url.equals(pattern);
             }
 
             if (isMatch) {
-                log.info("pattern: {}", pattern);
+                log.info("url: {}", pattern);
                 return isMatch;
             }
         }
