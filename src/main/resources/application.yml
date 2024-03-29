@@ -14,12 +14,12 @@ spring:
   application:
     name: spring-cloud-gateway-app
   cloud:
-    nacos:
-      config:
-        server-addr: 172.17.0.4:8848
-        namespace:
-      discovery:
-        server-add: 172.17.0.4:8848
+#    nacos:
+#      config:
+#        server-addr: 172.17.0.4:8848
+#        namespace:
+#      discovery:
+#        server-add: 172.17.0.4:8848
     gateway:
       routes:
         - id: query-service
@@ -34,6 +34,14 @@ spring:
         dashboard: localhost:8081 # 控制台地址
       filter:
         enabled: false
+#      datasource:
+#        flow_ds:
+#          nacos:
+#            server-addr: localhost:8848
+#            data-id: sentinel_provider_flow_rule
+#            group-id: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: flow
 
 
 server:

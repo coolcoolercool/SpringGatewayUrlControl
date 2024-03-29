@@ -1,6 +1,6 @@
 package org.example.gatewaysession.config;
 
-/*import java.util.Collections;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +59,9 @@ public class GatewaySentinelConfiguration {
         initGatewayRules();
     }
 
+    /**
+     * 代码示例: 添加api分组限流
+     */
     private void initCustomizedApis() {
         Set<ApiDefinition> definitions = new HashSet<>();
         ApiDefinition api1 = new ApiDefinition("some_customized_api")
@@ -77,6 +80,9 @@ public class GatewaySentinelConfiguration {
         GatewayApiDefinitionManager.loadApiDefinitions(definitions);
     }
 
+    /**
+     * 代码示例: 添加限流规则
+     */
     private void initGatewayRules() {
         Set<GatewayFlowRule> rules = new HashSet<>();
         rules.add(new GatewayFlowRule("aliyun_route")
@@ -131,4 +137,4 @@ public class GatewaySentinelConfiguration {
         );
         GatewayRuleManager.loadRules(rules);
     }
-}*/
+}
