@@ -19,6 +19,10 @@
         <spring-cloud-alibaba.version>2.2.10-RC1</spring-cloud-alibaba.version>
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+
+        <!--cas 依赖管理-->
+        <javax.servlet.version>4.0.1</javax.servlet.version>
+        <commons-codec.version>1.15</commons-codec.version>
     </properties>
     <dependencies>
         <!--redis 的配置-->
@@ -62,22 +66,19 @@
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
 
-        <!-- sentinel 的数据库（）持久化化到nacos-->
-<!--        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
-            <version>1.8.6</version>
+        <!--CAS 依赖-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${spring-cloud-alibaba.version}</version>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+            <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${spring-cloud-alibaba.version}</version>
-        </dependency>-->
 
         <dependency>
             <groupId>javax.annotation</groupId>
