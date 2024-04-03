@@ -21,7 +21,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 @Slf4j
-@Component
+//@Component
 public class AuthFilter implements GlobalFilter, Order {
 
     private String HASH_SESSION_KEY_PREFIX = "spring:session:sessions:";
