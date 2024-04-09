@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -58,7 +57,8 @@ public final class CommonUtils {
         // 第一次登录encode为true
         final URIBuilder originalRequestUrl = new URIBuilder(request.getURI().getPath(), encode);
         // 第一次登录请求这里为null
-        originalRequestUrl.setParameters(request.getQueryString());
+        // request.getURI().getQuery(): redirect_to_params=1&auth_token_params=ac01d8c1-0672-44ff-8725-5c0aa08a5463
+        originalRequestUrl.setParameters(request.getURI().getQuery());
 
         final URIBuilder builder;
         if (!serverName.startsWith("https://") && !serverName.startsWith("http://")) {

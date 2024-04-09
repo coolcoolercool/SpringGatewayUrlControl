@@ -58,6 +58,18 @@ black-ip:
   ip-list: ## 支持模糊配置
   #- 0:0:0:0:0:0:0:*
 
+white-url:
+  url-list: ## 支持模糊配置
+    - /login/xxx
+    - /logout/xxx
+
+jwt:
+  secret:
+    key: jwt-secret-key
+    auth-token-key: Authorization
+    auth-login-url: https://www.baidu.com
+
+
 
 
 
