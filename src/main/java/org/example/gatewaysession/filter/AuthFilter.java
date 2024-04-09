@@ -45,7 +45,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
         String url = request.getURI().getPath();
         if (isWhiteUrl(url)) {
-            log.info("url:{} is in white url", url);
+            log.info("url:{} is in white url, no need check", url);
             return chain.filter(exchange);
         }
 
