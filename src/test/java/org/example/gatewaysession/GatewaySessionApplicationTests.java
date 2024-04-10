@@ -3,6 +3,8 @@ package org.example.gatewaysession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.example.gatewaysession.config.AuthConfig;
+import org.example.gatewaysession.util.JwtUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import com.alibaba.fastjson.JSON;
 
-import java.util.Map;
+import java.util.*;
 
 
 @SpringBootTest
@@ -19,9 +21,14 @@ public class GatewaySessionApplicationTests {
 	@Autowired
 	private RedisTemplate redisTemplate;
 
+	@Autowired
+	private AuthConfig authConfig;
+
 	String hashKey = "hashKey";
 	String hashField = "hashField";
 	String hashValue = "hashValue";
+
+	final String JWT_REDIS_KEY = "jwt_redis_key";
 
 	@Test
 	void testRedis() {
@@ -58,6 +65,29 @@ public class GatewaySessionApplicationTests {
 
 //		List<String> functionList = (List<String>) string.get("functionList");
 //		log.info("testRedisGet userInfo functionList:{}", functionList);
+	}
+
+	@Test
+	void testListDisjoint() {
+		List<String> firstList = Arrays.asList("teacher", "worker", "student");
+		List<String> secondList = Arrays.asList("user", "admin");
+
+		if (Collections.disjoint(firstList, secondList)) {
+			System.out.println("Collections.disjoint方法：firstList、secondList没有交集");
+		}
+
+		List<String> thirdList = Arrays.asList("user", "bbb");;
+		if (!Collections.disjoint(secondList, thirdList)) {
+			System.out.println("Collections.disjoint方法：firstList、secondList有交集");
+		}
+	}
+
+	@Test
+	void testGenJwt() {
+		String jwtStr = JwtUtils.createToken(JWT_REDIS_KEY, "userInfo", authConfig.jwtSecretKey);
+		log.info("testGenJwt jwtStr:{}", jwtStr);
+		String userInfo = JwtUtils.verifyToken(jwtStr, JWT_REDIS_KEY, authConfig.jwtSecretKey);
+		log.info("userInfo:{}", userInfo);
 	}
 
 	@Test

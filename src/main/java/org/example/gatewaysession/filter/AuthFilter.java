@@ -30,7 +30,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     @Autowired
     private SkipUrl skipUrl;
 
-    private String TOKEN_HEADER_NAME = "Authorization";
+    private String TOKEN_HEADER_NAME = "userInfoHeaderKey";
 
     private AuthService authService;
 

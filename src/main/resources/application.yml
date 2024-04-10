@@ -66,7 +66,7 @@ skip-url:
 jwt:
   secret:
     key: jwt-secret-key
-    auth-token-key: Authorization
+    auth-token-key: userInfoKey
     auth-login-url: https://www.baidu.com
 
 
