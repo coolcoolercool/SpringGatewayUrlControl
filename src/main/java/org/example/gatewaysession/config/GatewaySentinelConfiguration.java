@@ -97,7 +97,7 @@ public class GatewaySentinelConfiguration {
                 .setParseStrategy(SentinelGatewayConstants.PARAM_PARSE_STRATEGY_CLIENT_IP)
             )
         );
-        rules.add(new GatewayFlowRule("httpbin_route")
+/*        rules.add(new GatewayFlowRule("httpbin_route")
             .setCount(10)
             .setIntervalSec(1)
             .setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER)
@@ -134,7 +134,7 @@ public class GatewaySentinelConfiguration {
                 .setParseStrategy(SentinelGatewayConstants.PARAM_PARSE_STRATEGY_URL_PARAM)
                 .setFieldName("pn")
             )
-        );
+        );*/
         GatewayRuleManager.loadRules(rules);
     }
 }

@@ -22,10 +22,14 @@ spring:
 #        server-add: 172.17.0.4:8848
     gateway:
       routes:
-        - id: query-service
-          uri: http://localhost:8090/
+        - id: query-service-route-id-0
+          uri: http://localhost:8888/
           predicates:
             - Path=/test/**
+        - id: query-service-route-id-1
+          uri: http://localhost:8888/
+          predicates:
+            - Path=/gw/**
     sentinel:
       enabled: true
       eager: true # 取消控制台懒加载，项目启动即连接Sentinel
@@ -34,15 +38,29 @@ spring:
         dashboard: localhost:8081 # 控制台地址
       filter:
         enabled: false
-#      datasource:
-#        flow_ds:
-#          nacos:
-#            server-addr: localhost:8848
-#            data-id: sentinel_provider_flow_rule
-#            group-id: DEFAULT_GROUP
-#            data-type: json
-#            rule-type: flow
-
+      datasource:
+        flow_ds:
+          nacos:
+            server-addr: localhost:8848
+            data-id: query-service-route-id-0-data-id
+            group-id: DEFAULT_GROUP
+            data-type: json
+            rule-type: gw-flow
+        api_ds_1:
+          nacos:
+            server-addr: localhost:8848
+            data-id: query-service-route-id-1-data-id
+            group-id: DEFAULT_GROUP
+            data-type: json
+            rule-type: gw-api-group
+        # 自定义API分组，gw-api-group为key，随便定义
+        gw-api-group:
+          nacos:
+            server-addr: localhost:8848
+            dataId: gw-api-group-rules-data-id
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: gw-api-group
 
 server:
   port: 8080
