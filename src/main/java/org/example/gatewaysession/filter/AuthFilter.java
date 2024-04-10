@@ -2,7 +2,7 @@ package org.example.gatewaysession.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.gatewaysession.config.AuthConfig;
-import org.example.gatewaysession.config.WhiteUrl;
+import org.example.gatewaysession.config.SkipUrl;
 import org.example.gatewaysession.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -28,11 +28,11 @@ public class AuthFilter implements GlobalFilter, Ordered {
     private AuthConfig authConfig;
 
     @Autowired
-    private WhiteUrl whiteUrl;
+    private SkipUrl skipUrl;
 
     private String TOKEN_HEADER_NAME = "Authorization";
 
-    private final AuthService authService;
+    private AuthService authService;
 
     public AuthFilter(AuthService authService) {
         this.authService = authService;
@@ -62,7 +62,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isWhiteUrl(String url) {
-        List<String> whiteUrlList = whiteUrl.getUrlList();
+        List<String> whiteUrlList = skipUrl.getUrlList();
         if (whiteUrlList.isEmpty()) {
             log.info("whiteUrl is empty");
             return false;

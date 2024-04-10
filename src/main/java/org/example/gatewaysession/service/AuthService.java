@@ -27,10 +27,14 @@ public class AuthService {
                     .setSigningKey(authConfig.jwtSecretKey)
                     .parseClaimsJws(jwtStr)
                     .getBody();
-            String token = claims.get(authConfig.authTokenKey).toString();
+            String uuidRedisKey = claims.get(authConfig.authTokenKey).toString();
 
-            // 从redis中获取 key为 token的键值对
-            return Boolean.TRUE.equals(redisTemplate.hasKey(token));
+            // 从redis中获取键为 uuidRedisKey，value预期中是用户信息，主要获取的是用户的权限点的List
+
+
+
+            // 从redis中获取 key为 token的键值对，主要包含
+            return Boolean.TRUE.equals(redisTemplate.hasKey(uuidRedisKey));
         } catch (ExpiredJwtException e) {
             // 已过期令牌
             log.error("token is expired, err msg: {}", e.getMessage());
