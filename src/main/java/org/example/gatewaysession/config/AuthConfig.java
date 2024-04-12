@@ -1,5 +1,6 @@
 package org.example.gatewaysession.config;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,6 +12,7 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "jwt")
 @Slf4j
+@Getter
 public class AuthConfig {
     @Value("${jwt.secret.key}")
     public String jwtSecretKey;
@@ -20,6 +22,9 @@ public class AuthConfig {
 
     @Value("${jwt.secret.auth-login-url}")
     public String authLoginUrl;
+
+    @Value("${jwt.secret.switch}")
+    private boolean AuthFilterSwitch;
 
     public Map<String, String> pathFunctionMap = new HashMap<>();
 

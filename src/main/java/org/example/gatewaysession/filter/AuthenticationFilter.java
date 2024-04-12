@@ -59,6 +59,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         return exchange.getSession().flatMap(webSession -> {
             // TODO: 跳过白名单url
 
+
             // 这里使用Session，获取 _const_cas_assertion_，但是不使用 Assertion
             if (webSession != null && webSession.getAttributes().containsKey(CONST_CAS_ASSERTION)) {
                 // 表示之前已经登录过了，此filter流程结束
