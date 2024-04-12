@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -21,9 +24,14 @@ spring:
 #      discovery:
 #        server-add: 172.17.0.4:8848
     gateway:
+      discovery:
+        locator:
+          enabled: true  #可以使用nacos中注册的服务名 进行路由
+          lower-case-service-id: true
       routes:
         - id: query-service-route-id-0
-          uri: http://localhost:8888/
+          #uri: http://localhost:8888/
+          uri: lb://redis-session
           predicates:
             - Path=/test/**
         - id: query-service-route-id-1
@@ -62,8 +70,7 @@ spring:
             data-type: json
             rule-type: gw-api-group
 
-server:
-  port: 8080
+
 
 logging:
   level:
