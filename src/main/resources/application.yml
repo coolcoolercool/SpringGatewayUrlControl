@@ -29,15 +29,15 @@ spring:
           enabled: true  #可以使用nacos中注册的服务名 进行路由
           lower-case-service-id: true
       routes:
-#        - id: query-service-route-id-0
-#          #uri: http://localhost:8888/
-#          uri: lb://redis-session
-#          predicates:
-#            - Path=/test/**
-#        - id: query-service-route-id-1
-#          uri: http://localhost:8888/
-#          predicates:
-#            - Path=/gw/**
+        - id: query-service-route-id-0
+          #uri: http://localhost:8888/
+          uri: lb://redis-session
+          predicates:
+            - Path=/test/**
+        - id: query-service-route-id-1
+          uri: http://localhost:8888/
+          predicates:
+            - Path=/gw/**
     sentinel:
       enabled: true
       eager: true # 取消控制台懒加载，项目启动即连接Sentinel
