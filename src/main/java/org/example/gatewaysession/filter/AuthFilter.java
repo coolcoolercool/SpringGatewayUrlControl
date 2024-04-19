@@ -10,6 +10,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -28,6 +29,8 @@ public class AuthFilter implements GlobalFilter, Order {
 
     private String TOKEN_HEADER_KEY = "auth_token";
 
+    private String HTTP_METHOD_OPTIONS = "OPTIONS";
+
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Autowired
@@ -41,7 +44,15 @@ public class AuthFilter implements GlobalFilter, Order {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         log.info("----------------------------AuthFilter Begin----------------------------");
-        String url = exchange.getRequest().getURI().getPath();
+
+        ServerHttpRequest request = exchange.getRequest();
+        String method = request.getMethodValue();
+        if (HTTP_METHOD_OPTIONS.equalsIgnoreCase(request.getMethodValue())) {
+            log.info("AuthFilter method is {}",request.getMethodValue());
+            return chain.filter(exchange);
+        }
+
+        String url = request.getURI().getPath();
         log.info("filter url: {}", url);
 
         ServerHttpResponse response = exchange.getResponse();
